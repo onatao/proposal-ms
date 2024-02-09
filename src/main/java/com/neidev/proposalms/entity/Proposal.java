@@ -1,7 +1,11 @@
 package com.neidev.proposalms.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Data;
 
+@Data
+@Builder
 @Entity(name = "PROPOSAL")
 @Table(name = "TB_PROPOSAL")
 public class Proposal {
