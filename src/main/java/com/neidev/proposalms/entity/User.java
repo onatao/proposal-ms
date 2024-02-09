@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 @Builder
-@Entity(name = "PROPOSAL")
-@Table(name = "TB_PROPOSAL")
+@Entity(name = "USER")
+@Table(name = "TB_USER")
 public class User {
 
 
