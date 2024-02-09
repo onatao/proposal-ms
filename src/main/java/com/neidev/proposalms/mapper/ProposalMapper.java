@@ -10,7 +10,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper
 public interface ProposalMapper {
 
-    ProposalMapper INSTANCE = Mappers.getMapper(ProposalMapper.class);
+    ProposalMapper mapper = Mappers.getMapper(ProposalMapper.class);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "approved", ignore = true)

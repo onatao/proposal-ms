@@ -16,8 +16,8 @@ public class ProposalService {
 
     @Transactional
     public ProposalResponseForm create(ProposalRequestForm data) {
-        var entity = ProposalMapper.INSTANCE.toEntity(data);
+        var entity = ProposalMapper.mapper.toEntity(data);
         proposalRepository.save(entity);
-        return ProposalMapper.INSTANCE.toResponse(entity);
+        return ProposalMapper.mapper.toResponse(entity);
     }
 }
