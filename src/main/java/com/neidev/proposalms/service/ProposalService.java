@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class ProposalService {
@@ -19,5 +21,11 @@ public class ProposalService {
         var entity = ProposalMapper.mapper.toEntity(data);
         proposalRepository.save(entity);
         return ProposalMapper.mapper.toResponse(entity);
+    }
+
+    @Transactional
+    public List<ProposalResponseForm> findAll() {
+        return ProposalMapper
+                .mapper.parseToResponseList(proposalRepository.findAll());
     }
 }

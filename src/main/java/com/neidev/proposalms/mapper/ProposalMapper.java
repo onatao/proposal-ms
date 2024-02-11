@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import java.util.List;
+
 @Mapper
 public interface ProposalMapper {
 
@@ -29,4 +31,6 @@ public interface ProposalMapper {
     @Mapping(target = "cpf", source = "user.cpf")
     @Mapping(target = "income", source = "user.income")
     ProposalResponseForm toResponse(Proposal data);
+
+    List<ProposalResponseForm> parseToResponseList(Iterable<Proposal> proposal);
 }
