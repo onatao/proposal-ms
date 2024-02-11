@@ -17,7 +17,7 @@ public class ProposalResponseForm {
     private String phoneNumber;
     private String cpf;
     private Double income;
-    private Double requiredAmount;
+    private String requiredAmountRes;
     private int paymentTerm;
     private Boolean approved;
     private String observation;

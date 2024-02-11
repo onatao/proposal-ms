@@ -7,6 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+import java.text.NumberFormat;
 import java.util.List;
 
 @Mapper
@@ -30,7 +31,19 @@ public interface ProposalMapper {
     @Mapping(target = "phoneNumber", source = "user.phoneNumber")
     @Mapping(target = "cpf", source = "user.cpf")
     @Mapping(target = "income", source = "user.income")
+    // Calling the expression thatll convert the double
+    @Mapping(target = "requiredAmountRes", expression = "java(setRequiredAmountRes(proposal))")
     ProposalResponseForm toResponse(Proposal data);
 
     List<ProposalResponseForm> parseToResponseList(Iterable<Proposal> proposal);
+
+    /**
+     * Converting the double value (Proposal - double amount) to String
+     * to avoid conflict with frontend application & keep location format
+     * @param proposal
+     * @return proposal amount attribute converted from Double to String
+     */
+    default String setRequiredAmountRes(Proposal proposal) {
+        return NumberFormat.getCurrencyInstance().format(proposal.getAmount());
+    }
 }
