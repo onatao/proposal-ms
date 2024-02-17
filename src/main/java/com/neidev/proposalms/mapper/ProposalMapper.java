@@ -32,7 +32,7 @@ public interface ProposalMapper {
     @Mapping(target = "cpf", source = "user.cpf")
     @Mapping(target = "income", source = "user.income")
     // Calling the expression thatll convert the double
-    @Mapping(target = "requiredAmountRes", expression = "java(setRequiredAmountRes(proposal))")
+    @Mapping(target = "requiredAmountRes", expression = "java(setRequiredAmountRes(data))")
     ProposalResponseForm toResponse(Proposal data);
 
     List<ProposalResponseForm> parseToResponseList(Iterable<Proposal> proposal);
@@ -40,10 +40,10 @@ public interface ProposalMapper {
     /**
      * Converting the double value (Proposal - double amount) to String
      * to avoid conflict with frontend application & keep location format
-     * @param proposal
+     * @param data
      * @return proposal amount attribute converted from Double to String
      */
-    default String setRequiredAmountRes(Proposal proposal) {
-        return NumberFormat.getCurrencyInstance().format(proposal.getAmount());
+    default String setRequiredAmountRes(Proposal data) {
+        return NumberFormat.getCurrencyInstance().format(data.getAmount());
     }
 }
