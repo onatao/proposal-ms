@@ -1,7 +1,6 @@
 package com.neidev.proposalms.config;
 
-import org.springframework.amqp.core.Queue;
-import org.springframework.amqp.core.QueueBuilder;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -46,4 +45,22 @@ public class RabbitMqConfiguration {
         return event -> rabbitAdmin.initialize();
     }
 
+    @Bean
+    public FanoutExchange createFanOutExchangePendingProposal() {
+        return ExchangeBuilder.fanoutExchange("proposta-pendente.ex").build();
+    }
+
+    @Bean
+    public Binding createPendingProposalToCreditMsBinding() {
+        return BindingBuilder
+                .bind(createPendingProposalCreditQueue())
+                .to(createFanOutExchangePendingProposal());
+    }
+
+    @Bean
+    public Binding createPedingProposalToNotificationMsBinding() {
+        return BindingBuilder
+                .bind(createPedingProposalNotificationQueue())
+                .to(createFanOutExchangePendingProposal());
+    }
 }
