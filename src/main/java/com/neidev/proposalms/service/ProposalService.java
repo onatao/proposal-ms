@@ -15,7 +15,7 @@ import java.util.List;
 public class ProposalService {
 
     private final ProposalRepository proposalRepository;
-    private final RabbitNotificationService notificationService;
+    private final RabbitNotificationService rabbitNotificationService;
 
     @Transactional
     public ProposalResponseForm create(ProposalRequestForm data) {
@@ -23,7 +23,7 @@ public class ProposalService {
         proposalRepository.save(entity);
 
         var response = ProposalMapper.mapper.toResponse(entity);
-        notificationService.notify(response, "proposta-pendente.ex");
+        rabbitNotificationService.notify(response, "proposta-pendente.ex");
 
         return response;
     }
